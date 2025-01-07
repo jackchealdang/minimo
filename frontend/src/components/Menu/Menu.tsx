@@ -25,7 +25,7 @@ export default function Menu() {
       <Dialog open={showCreateForm} onOpenChange={setShowCreateForm} modal={false}>
         <Menubar>
           <MenubarMenu>
-            <MenubarTrigger>File</MenubarTrigger>
+            <MenubarTrigger className='hover:bg-accent hover:text-accent-foreground'>File</MenubarTrigger>
             <MenubarContent>
               <DialogTrigger asChild>
                 <MenubarItem>
@@ -33,6 +33,10 @@ export default function Menu() {
                   <MenubarShortcut></MenubarShortcut>
                 </MenubarItem>
               </DialogTrigger>
+              <MenubarItem disabled>
+                Create Folder
+                <MenubarShortcut></MenubarShortcut>
+              </MenubarItem>
             </MenubarContent>
           </MenubarMenu>
         </Menubar>

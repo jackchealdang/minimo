@@ -37,7 +37,7 @@ const schema = {
 
 // Add todo
 app.post('/createTodo', { schema }, async (request: any, reply) => {
-    const {data, error} = await supabase.from('todo').insert({title: request.body.title})
+    const {data, error} = await supabase.from('todo').insert({title: request.body.title}).select()
     if (error) return reply.status(500).send({error: error.message});
     return data;
 })
