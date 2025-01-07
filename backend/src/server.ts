@@ -1,11 +1,13 @@
+import * as fastify from 'fastify';
 import Fastify from 'fastify';
+import { Server, IncomingMessage, ServerResponse } from 'http'
 import cors from '@fastify/cors';
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const app = Fastify();
+const app: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = Fastify();
 
 // Supabase client setup
 const supabaseUrl = process.env.SUPABASE_URL || '';
@@ -17,6 +19,25 @@ app.register(cors, { origin: '*'});
 // Get all todos
 app.get('/todos', async (request, reply) => {
     const { data, error } = await supabase.from('todo').select('*');
+    if (error) return reply.status(500).send({error: error.message});
+    return data;
+})
+
+const todoBodyJsonSchema = {
+    type: 'object',
+    required: ['title'],
+    properties: {
+        title: {type: 'string'},
+    }
+}
+
+const schema = {
+    body: todoBodyJsonSchema,
+}
+
+// Add todo
+app.post('/createTodo', { schema }, async (request: any, reply) => {
+    const {data, error} = await supabase.from('todo').insert({title: request.body.title})
     if (error) return reply.status(500).send({error: error.message});
     return data;
 })

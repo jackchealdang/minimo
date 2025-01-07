@@ -25,6 +25,7 @@ export default function Todo() {
     return (
     <div className="mt-4 mb-4">
         <ScrollArea className="rounded-md border p-4">
+        <div className="flex flex-col gap-y-2">
         {todos.map((todo) => (
             <div className="flex items-center space-x-2">
                 <Checkbox id={`${todo.id}`} key={`c-${todo.id}`}/>
@@ -32,6 +33,7 @@ export default function Todo() {
                 <Label key={`l-${todo.id}`} htmlFor={`${todo.id}`}>{todo.title}</Label>
             </div>
         ))}
+        </div>
         </ScrollArea>
     </div>
   );

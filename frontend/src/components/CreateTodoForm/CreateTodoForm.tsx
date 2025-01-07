@@ -20,6 +20,29 @@ const formSchema = z.object({
     }),
 })
 
+async function createTodo(title: string) {
+    fetch('http://localhost:5000/createTodo', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            title: title,
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        toast("Todo created!", {
+        })
+    })
+    .catch(error => {
+        console.log(error);
+        toast("Failed to create Todo!", {
+        })
+    })
+}
+
 export function CreateTodoForm({closeParentDialog}: Props) {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -29,14 +52,9 @@ export function CreateTodoForm({closeParentDialog}: Props) {
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        // TODO: call add todo API here
-        console.log(values)
+        createTodo(values.title);
 
         if (typeof closeParentDialog === 'function') closeParentDialog();
-
-        toast("Todo created!", {
-            description: <i>{values.title}</i>,
-        })
     }
 
     return (
