@@ -38,7 +38,7 @@ export function CreateTodoForm() {
                         <FormItem>
                             <FormLabel>Title</FormLabel>
                             <FormControl>
-                                <Input placeholder="Pay bills" {...field} />
+                                <Input placeholder="Exercise for 30 minutes" {...field} />
                             </FormControl>
                             <FormDescription>
                                 Todo description.
