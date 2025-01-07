@@ -15,7 +15,7 @@ async function fetchTodos() {
 export default function TodoList() {
     const { isPending, error, data, isFetching } = useQuery({ queryKey: ['todos'], queryFn: fetchTodos});
 
-    if (isPending || isFetching) return (
+    if (isPending) return (
         <TodoSkeleton/>
     );
 

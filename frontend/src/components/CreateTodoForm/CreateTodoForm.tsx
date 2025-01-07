@@ -8,6 +8,7 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Todo } from '@/ts/types'
+import { toast } from 'sonner'
 
 interface Props {
     closeParentDialog?: () => void;
@@ -19,7 +20,6 @@ const formSchema = z.object({
     }).max(50, {
         message: 'Title must be less than 50 characters',
     }),
-    tags: z.string().max(50).optional(),
 })
 
 async function createTodo(title: string) {
@@ -39,14 +39,30 @@ export function CreateTodoForm({closeParentDialog}: Props) {
     const queryClient = useQueryClient();
     const mutation = useMutation({
         mutationFn: createTodo,
-        onSuccess: (newTodo) => {
-            queryClient.setQueryData<Todo[]>(['todos'],
-                (oldTodos) => {
-                    console.log(oldTodos)
-                    console.log(newTodo)
-                    return oldTodos ? [...oldTodos, newTodo] : [newTodo];
-                }
-            )
+        onMutate: async (newTodo) => {
+            await queryClient.cancelQueries({queryKey: ['todos']});
+
+            const previousTodos = queryClient.getQueryData<Todo[]>(['todos']);
+            const temporaryId = Math.random();
+
+            const optimisticTodo: Todo = {
+                id: temporaryId,
+                created_at: new Date().toISOString(),
+                title: newTodo,
+                completed: false,
+            }
+
+            queryClient.setQueryData<Todo[]>(['todos'], (old) => [...old, optimisticTodo]);
+
+            return { previousTodos };
+        },
+        onError: (err, newTodo, context) => {
+            queryClient.setQueryData(['todos'], context?.previousTodos);
+            toast("Failed to create Todo!");
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries({queryKey: ['todos']});
+            toast("Todo created!");
         }
     })
 
@@ -54,7 +70,6 @@ export function CreateTodoForm({closeParentDialog}: Props) {
         resolver: zodResolver(formSchema),
         defaultValues: {
             title: "",
-            tags: "",
         },
     })
 
@@ -77,22 +92,6 @@ export function CreateTodoForm({closeParentDialog}: Props) {
                                 <Input placeholder="Exercise for 30 minutes" {...field} />
                             </FormControl>
                             {/* <FormDescription>Give a title for your Todo!</FormDescription> */}
-                            <FormMessage/>
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="tags"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Tags</FormLabel>
-                            <FormControl>
-                                <Input placeholder="health, school, work..." {...field} />
-                            </FormControl>
-                            {/* <FormDescription>
-                                Todo description.
-                            </FormDescription> */}
                             <FormMessage/>
                         </FormItem>
                     )}
