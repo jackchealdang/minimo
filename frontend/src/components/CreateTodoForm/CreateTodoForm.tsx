@@ -6,8 +6,8 @@ import { string, z } from 'zod'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
-import { toast } from 'sonner'
-import { useTodos } from '@/contexts/TodoContext'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { Todo } from '@/ts/types'
 
 interface Props {
     closeParentDialog?: () => void;
@@ -19,21 +19,47 @@ const formSchema = z.object({
     }).max(50, {
         message: 'Title must be less than 50 characters',
     }),
-    tags: z.string().min(2).max(50),
+    tags: z.string().max(50).optional(),
 })
 
+async function createTodo(title: string) {
+    const response = await fetch('http://localhost:5000/createTodo', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            title: title,
+        })
+    });
+    return await response.json();
+}
+
 export function CreateTodoForm({closeParentDialog}: Props) {
-    const { createTodo } = useTodos();
+    const queryClient = useQueryClient();
+    const mutation = useMutation({
+        mutationFn: createTodo,
+        onSuccess: (newTodo) => {
+            queryClient.setQueryData<Todo[]>(['todos'],
+                (oldTodos) => {
+                    console.log(oldTodos)
+                    console.log(newTodo)
+                    return oldTodos ? [...oldTodos, newTodo] : [newTodo];
+                }
+            )
+        }
+    })
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             title: "",
+            tags: "",
         },
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        createTodo(values.title);
+        mutation.mutate(values.title);
 
         if (typeof closeParentDialog === 'function') closeParentDialog();
     }

@@ -2,15 +2,17 @@ import {ThemeProvider} from './components/theme-provider'
 import Navbar from './components/Navbar/Navbar'
 import Todo from './components/Todo/Todo'
 import { Toaster } from './components/ui/sonner'
-import { TodosProvider } from './contexts/TodoContext'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <ThemeProvider defaultTheme='dark' storageKey="vite-ui-theme">
-      <TodosProvider>
+      <QueryClientProvider client={queryClient}>
         <Navbar/>
         <Todo/>
-      </TodosProvider>
+      </QueryClientProvider>
       <Toaster />
     </ThemeProvider>
   )
