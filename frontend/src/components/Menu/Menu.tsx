@@ -22,7 +22,7 @@ export default function Menu() {
 
   return (
     <>
-      <Dialog modal={false}>
+      <Dialog open={showCreateForm} onOpenChange={setShowCreateForm} modal={false}>
         <Menubar>
           <MenubarMenu>
             <MenubarTrigger>File</MenubarTrigger>
@@ -39,9 +39,9 @@ export default function Menu() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Create Todo</DialogTitle>
-            {/* <DialogDescription>Create Todo</DialogDescription> */}
+            <DialogDescription></DialogDescription>
           </DialogHeader>
-          <CreateTodoForm />
+          <CreateTodoForm closeParentDialog={() => setShowCreateForm(false)}/>
         </DialogContent>
       </Dialog>
     </>

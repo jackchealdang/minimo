@@ -6,6 +6,11 @@ import { z } from 'zod'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
+import { toast } from 'sonner'
+
+interface Props {
+    closeParentDialog?: () => void;
+}
 
 const formSchema = z.object({
     title: z.string().min(2, {
@@ -15,7 +20,7 @@ const formSchema = z.object({
     }),
 })
 
-export function CreateTodoForm() {
+export function CreateTodoForm({closeParentDialog}: Props) {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -26,6 +31,12 @@ export function CreateTodoForm() {
     function onSubmit(values: z.infer<typeof formSchema>) {
         // TODO: call add todo API here
         console.log(values)
+
+        if (typeof closeParentDialog === 'function') closeParentDialog();
+
+        toast("Todo created!", {
+            description: <i>{values.title}</i>,
+        })
     }
 
     return (
@@ -40,9 +51,9 @@ export function CreateTodoForm() {
                             <FormControl>
                                 <Input placeholder="Exercise for 30 minutes" {...field} />
                             </FormControl>
-                            <FormDescription>
+                            {/* <FormDescription>
                                 Todo description.
-                            </FormDescription>
+                            </FormDescription> */}
                             <FormMessage/>
                         </FormItem>
                     )}
