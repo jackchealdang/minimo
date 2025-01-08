@@ -39,6 +39,17 @@ export default function Menu() {
               </MenubarItem>
             </MenubarContent>
           </MenubarMenu>
+          <MenubarMenu>
+            <MenubarTrigger className='hover:bg-accent hover:text-accent-foreground'>Help</MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem>
+                Shortcuts
+              </MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+          <MenubarMenu>
+          <MenubarTrigger className='hover:bg-accent hover:text-accent-foreground'>About</MenubarTrigger>
+          </MenubarMenu>
         </Menubar>
         <DialogContent>
           <DialogHeader>

@@ -7,7 +7,7 @@ export default function Todo() {
 
     return (
     <div className="mt-4 mb-4">
-        <ScrollArea className="rounded-md border p-4">
+        <ScrollArea className="rounded-md border p-4 h-[50rem]">
             <TodoList/>
         </ScrollArea>
     </div>
