@@ -9,10 +9,12 @@ import { Button } from '../ui/button'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Todo } from '@/ts/types'
 import { toast } from 'sonner'
+import { useSupabase } from '@/contexts/SupabaseContext'
 
 interface Props {
     closeParentDialog?: () => void;
 }
+
 
 const formSchema = z.object({
     title: z.string().min(2, {
@@ -22,21 +24,20 @@ const formSchema = z.object({
     }),
 })
 
-async function createTodo(title: string) {
-    const response = await fetch('http://localhost:5000/createTodo', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            title: title,
-        })
-    });
-    return await response.json();
-}
 
 export function CreateTodoForm({closeParentDialog}: Props) {
+    const supabase = useSupabase();
     const queryClient = useQueryClient();
+
+    async function createTodo(title: string) {
+        const { data, error } = await supabase.from('todo').insert({title:title}).select()
+        if (error) {
+            toast('Error fetching Todos!');
+            return;
+        }
+        return data;
+    }
+
     const mutation = useMutation({
         mutationFn: createTodo,
         onMutate: async (newTodo) => {

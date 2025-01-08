@@ -2,18 +2,54 @@ import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
 import { Badge } from "../ui/badge";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "../ui/context-menu";
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { TodoSkeleton } from "../skeletons/TodoSkeleton";
 import { Todo } from "@/ts/types";
-
-async function fetchTodos() {
-    const response = await fetch('http://localhost:5000/todos');
-
-    return await response.json();
-}
+import { useSupabase } from "@/contexts/SupabaseContext";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export default function TodoList() {
     const { isPending, error, data, isFetching } = useQuery({ queryKey: ['todos'], queryFn: fetchTodos});
+    const supabase = useSupabase();
+    const queryClient = useQueryClient();
+
+    async function fetchTodos() {
+        const { data, error } = await supabase.from('todo').select()
+        return data;
+    }
+
+    async function deleteTodo(id: number) {
+        await supabase.from('todo').delete().eq('id', id);
+    }
+
+    const mutation = useMutation({
+        mutationFn: deleteTodo,
+        onMutate: async (id: number) => {
+            await queryClient.cancelQueries({queryKey: ['todos']});
+
+            const previousTodos = queryClient.getQueryData<Todo[]>(['todos']);
+
+            queryClient.setQueryData(
+                ['todos'],
+                (oldTodos: Todo[] | undefined) => oldTodos?.filter((todo) => todo.id !== id) || []
+            );
+
+            return { previousTodos };
+        },
+        onError: (err, newTodo, context) => {
+            queryClient.setQueryData(['todos'], context?.previousTodos);
+            toast("Failed to create Todo!");
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries({queryKey: ['todos']});
+            toast("Todo deleted!");
+        }
+    })
+
+    const handleDeleteTodo = (id: number) => {
+        mutation.mutate(id);
+    };
 
     if (isPending) return (
         <TodoSkeleton/>
@@ -36,7 +72,7 @@ export default function TodoList() {
                             <ContextMenuItem>
                                 Edit
                             </ContextMenuItem>
-                            <ContextMenuItem className="text-red-600">
+                            <ContextMenuItem className="text-red-600" onSelect={() => handleDeleteTodo(todo.id)}>
                                 Delete
                             </ContextMenuItem>
                         </ContextMenuContent>

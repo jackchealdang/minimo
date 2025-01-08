@@ -50,7 +50,7 @@ function Navbar() {
         </>) : <>
         <Dialog open={showSignUpForm} onOpenChange={setShowSignUpForm} modal={false}>
           <DialogTrigger asChild>
-            <Button variant={'outline'}>Sign up</Button>
+            <Button variant={'outline'}>Sign Up</Button>
           </DialogTrigger>
           <DialogContent className='max-w-lg'>
             <DialogHeader>
