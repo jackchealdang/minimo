@@ -8,14 +8,11 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { User } from '@supabase/supabase-js';
 import { useSupabase } from '@/contexts/SupabaseContext';
 import { toast } from 'sonner';
+import { useAuth } from '@/contexts/AuthContext';
 
 function Navbar() {
+  const { user } = useAuth();
   const supabase = useSupabase();
-
-  async function getUser() {
-    const { data: { user } } = await supabase.auth.getUser();
-    setUser(user);
-  }
 
   async function signOut() {
     const { error } = await supabase.auth.signOut({scope: 'local'});
@@ -26,13 +23,8 @@ function Navbar() {
     toast('Signed out!')
   }
 
-  useEffect(() => {
-      getUser();
-  }, []);
-
   const [showSignUpForm, setShowSignUpForm] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
 
   return (
     <div className='w-full flex items-center justify-between text-center'>

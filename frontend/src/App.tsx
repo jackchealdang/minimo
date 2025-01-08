@@ -4,6 +4,7 @@ import Todo from './components/Todo/Todo'
 import { Toaster } from './components/ui/sonner'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { SupabaseProvider } from './contexts/SupabaseContext'
+import { AuthProvider } from './contexts/AuthContext'
 
 const queryClient = new QueryClient();
 
@@ -12,8 +13,10 @@ function App() {
     <ThemeProvider defaultTheme='dark' storageKey="vite-ui-theme">
       <QueryClientProvider client={queryClient}>
         <SupabaseProvider>
-          <Navbar/>
-          <Todo/>
+          <AuthProvider>
+            <Navbar/>
+            <Todo/>
+          </AuthProvider>
         </SupabaseProvider>
       </QueryClientProvider>
       <Toaster />

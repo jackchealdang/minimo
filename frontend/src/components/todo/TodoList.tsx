@@ -10,8 +10,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 export default function TodoList() {
-    const { isPending, error, data, isFetching } = useQuery({ queryKey: ['todos'], queryFn: fetchTodos});
     const supabase = useSupabase();
+    const { isPending, error, data, isFetching } = useQuery({ queryKey: ['todos'], queryFn: fetchTodos, enabled: !!supabase.auth.getSession});
     const queryClient = useQueryClient();
 
     async function fetchTodos() {
