@@ -9,7 +9,6 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-
     "predeploy": "tsc -b && vite build",
     "deploy": "gh-pages -d build"
   },
@@ -29,6 +28,7 @@
     "@tanstack/react-query-devtools": "^5.62.16",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.7",
     "lucide-react": "^0.469.0",
     "next-themes": "^0.4.4",
     "react": "^18.3.1",
