@@ -16,8 +16,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../ui/dialog';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function Menu() {
+  const { user } = useAuth();
   const [showCreateForm, setShowCreateForm] = useState(false);
 
   return (
@@ -28,7 +30,7 @@ export default function Menu() {
             <MenubarTrigger className='hover:bg-accent hover:text-accent-foreground'>File</MenubarTrigger>
             <MenubarContent>
               <DialogTrigger asChild>
-                <MenubarItem>
+                <MenubarItem disabled={user ? false : true}>
                   Create Todo
                   <MenubarShortcut></MenubarShortcut>
                 </MenubarItem>
@@ -42,13 +44,20 @@ export default function Menu() {
           <MenubarMenu>
             <MenubarTrigger className='hover:bg-accent hover:text-accent-foreground'>Help</MenubarTrigger>
             <MenubarContent>
-              <MenubarItem>
+              <MenubarItem disabled>
                 Shortcuts
               </MenubarItem>
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>
           <MenubarTrigger className='hover:bg-accent hover:text-accent-foreground'>About</MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem disabled>
+                About Minimo
+              </MenubarItem>
+              <MenubarItem disabled>What's new</MenubarItem>
+              <MenubarItem disabled>Roadmap</MenubarItem>
+            </MenubarContent>
           </MenubarMenu>
         </Menubar>
         <DialogContent>

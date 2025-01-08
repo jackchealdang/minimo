@@ -63,7 +63,7 @@ export function CreateTodoForm({closeParentDialog}: Props) {
         },
         onSettled: () => {
             queryClient.invalidateQueries({queryKey: ['todos']});
-            toast("Todo created!");
+            toast.success("Todo created!");
         }
     })
 

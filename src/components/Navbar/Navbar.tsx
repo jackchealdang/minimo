@@ -27,7 +27,7 @@ function Navbar() {
 
   return (
     <div className='w-full flex items-center justify-between text-center'>
-      <div className='flex items-center gap-5'>
+      <div className='items-center gap-5 flex'>
         <h1 className='font-bold'>Minimo</h1>
         <Menu/>
       </div>
@@ -36,7 +36,9 @@ function Navbar() {
             </div> */}
       <div className='flex items-center gap-x-3'>
         {user ? (<>
+        <div className='hidden sm:block'>
           {user.email}
+        </div>
           <Button onClick={() => signOut()}>Sign out</Button>
         </>) : <>
         <Dialog open={showSignUpForm} onOpenChange={setShowSignUpForm} modal={false}>

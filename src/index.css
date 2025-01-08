@@ -20,12 +20,17 @@
 
 body {
   margin: 0;
-  padding: 1.5em 5em;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  min-width: 320px;
   min-height: 100vh;
+  height: 100vh;
 }
+
+html {
+  overflow:hidden;
+}
+
 
 h1 {
   font-size: 1.4em;
