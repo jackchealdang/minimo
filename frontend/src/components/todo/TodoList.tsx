@@ -11,11 +11,11 @@ import { toast } from "sonner";
 
 export default function TodoList() {
     const supabase = useSupabase();
-    const { isPending, error, data, isFetching } = useQuery({ queryKey: ['todos'], queryFn: fetchTodos, enabled: !!supabase.auth.getSession});
+    const { isPending, error, data } = useQuery({ queryKey: ['todos'], queryFn: fetchTodos, enabled: !!supabase.auth.getSession});
     const queryClient = useQueryClient();
 
     async function fetchTodos() {
-        const { data, error } = await supabase.from('todo').select()
+        const { data } = await supabase.from('todo').select()
         return data;
     }
 
@@ -37,7 +37,7 @@ export default function TodoList() {
 
             return { previousTodos };
         },
-        onError: (err, newTodo, context) => {
+        onError: (_err, _newTodo, context) => {
             queryClient.setQueryData(['todos'], context?.previousTodos);
             toast("Failed to create Todo!");
         },
@@ -59,7 +59,7 @@ export default function TodoList() {
 
     return (
         <div className="flex flex-col gap-y-2">
-            {data.map((todo: Todo) => (
+            {data?.map((todo: Todo) => (
                 <ContextMenu key={todo.id} modal={false}>
                         <ContextMenuTrigger className="">
                         <div className="flex items-center space-x-2">

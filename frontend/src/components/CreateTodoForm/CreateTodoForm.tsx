@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -53,11 +53,11 @@ export function CreateTodoForm({closeParentDialog}: Props) {
                 completed: false,
             }
 
-            queryClient.setQueryData<Todo[]>(['todos'], (old) => [...old, optimisticTodo]);
+            queryClient.setQueryData<Todo[]>(['todos'], (old) => Array.isArray(old) ? [...old, optimisticTodo] : [optimisticTodo]);
 
             return { previousTodos };
         },
-        onError: (err, newTodo, context) => {
+        onError: (_err, _newTodo, context) => {
             queryClient.setQueryData(['todos'], context?.previousTodos);
             toast("Failed to create Todo!");
         },

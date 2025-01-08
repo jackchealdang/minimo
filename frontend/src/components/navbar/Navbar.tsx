@@ -1,14 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SignUpForm } from '../SignUpForm/SignUpForm';
-import { LogInForm } from '../LogInForm/LoginForm';
 import Menu from '../Menu/Menu';
 import { ModeToggle } from '../mode-toggle';
 import { Button } from '../ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
-import { User } from '@supabase/supabase-js';
 import { useSupabase } from '@/contexts/SupabaseContext';
 import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
+import { LogInForm } from '../LogInForm/LogInForm';
 
 function Navbar() {
   const { user } = useAuth();
