@@ -6,8 +6,8 @@ import TodoList from "./TodoList";
 export default function Todo() {
 
     return (
-    <div className="mt-4 mb-4 max-h-full">
-        <ScrollArea className="rounded-md border p-4 h-full max-h-full">
+    <div className="pt-4 pb-4 w-full h-[48rem] box-border">
+        <ScrollArea className="rounded-md border p-4 w-full h-full">
             <TodoList/>
         </ScrollArea>
     </div>

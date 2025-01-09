@@ -1,4 +1,4 @@
-/* #root {
+#root {
   max-width: 1280px;
   width: 100%;
   margin: 0;
@@ -6,4 +6,5 @@
   box-sizing: border-box;
   text-align: center;
   height: 100%;
-} */
+  box-sizing: border-box;
+}

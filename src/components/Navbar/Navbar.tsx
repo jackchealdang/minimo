@@ -28,7 +28,7 @@ function Navbar() {
   return (
     <div className='w-full flex items-center justify-between text-center'>
       <div className='items-center gap-5 flex'>
-        <h1 className='font-bold'>Minimo</h1>
+        <h1 className='hidden sm:block font-bold'>Minimo</h1>
         <Menu/>
       </div>
       {/* <div className="border rounded-full">
@@ -39,7 +39,7 @@ function Navbar() {
         <div className='hidden sm:block'>
           {user.email}
         </div>
-          <Button onClick={() => signOut()}>Sign out</Button>
+          <Button variant={'outline'} onClick={() => signOut()}>Sign out</Button>
         </>) : <>
         <Dialog open={showSignUpForm} onOpenChange={setShowSignUpForm} modal={false}>
           <DialogTrigger asChild>
