@@ -47,6 +47,7 @@ export function LogInForm({closeParentDialog}: Props){
     }
 
     return (
+        <div className="grid gap-6">
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
@@ -77,7 +78,8 @@ export function LogInForm({closeParentDialog}: Props){
                 />
                 <Button type='submit' className="w-full">Login</Button>
             </form>
-                <GoogleLogin/>
         </Form>
+        <GoogleLogin/>
+        </div>
     )   
 }
