@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { useSupabase } from "@/contexts/SupabaseContext";
+import { GoogleLogin } from "../GoogleLogin/GoogleLogin";
 
 const formSchema = z.object({
     email: z.string().email(),
@@ -74,8 +75,9 @@ export function LogInForm({closeParentDialog}: Props){
                         </FormItem>
                     )}
                 />
-                <Button type='submit'>Sign In</Button>
+                <Button type='submit' className="w-full">Login</Button>
             </form>
+                <GoogleLogin/>
         </Form>
     )   
 }

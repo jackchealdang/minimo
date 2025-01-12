@@ -51,6 +51,7 @@ export function SignUpForm({closeParentDialog}: Props){
     }
 
     return (
+        <>
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
@@ -95,5 +96,6 @@ export function SignUpForm({closeParentDialog}: Props){
                 <Button type='submit'>Sign Up</Button>
             </form>
         </Form>
+        </>
     )   
 }
