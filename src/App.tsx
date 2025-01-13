@@ -12,8 +12,8 @@ function App() {
   return (
     <>
         <Routes>
-          <Route path="/" element={<HomePage />}/>
-          <Route path="login" element={<LoginPage/>}/>
+          <Route path="todo-supabase" element={<HomePage />}/>
+          <Route path="todo-supabase/login" element={<LoginPage/>}/>
         </Routes>
       <Toaster />
     </>
