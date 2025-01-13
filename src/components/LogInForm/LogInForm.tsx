@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { useSupabase } from "@/contexts/SupabaseContext";
 import { GoogleLogin } from "../GoogleLogin/GoogleLogin";
+import { Separator } from "../ui/separator";
 
 const formSchema = z.object({
     email: z.string().email(),
@@ -47,7 +48,7 @@ export function LogInForm({closeParentDialog}: Props){
     }
 
     return (
-        <div className="grid gap-6">
+        <div className="grid gap-4">
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
@@ -79,7 +80,12 @@ export function LogInForm({closeParentDialog}: Props){
                 <Button type='submit' className="w-full">Login</Button>
             </form>
         </Form>
+        <Separator/>
         <GoogleLogin/>
+        <div className="text-center">
+            Don't have an account?{" "}
+            <a href="#" className="underline underline-offset-4">Sign up</a>
+        </div>
         </div>
     )   
 }

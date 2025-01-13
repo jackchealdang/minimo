@@ -8,6 +8,7 @@ import { useSupabase } from '@/contexts/SupabaseContext';
 import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
 import { LogInForm } from '../LogInForm/LogInForm';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   const { user } = useAuth();
@@ -56,10 +57,14 @@ function Navbar() {
           </DialogContent>
         </Dialog>
         <Dialog open={showLoginForm} onOpenChange={setShowLoginForm} modal={false}>
-          <DialogTrigger asChild>
-            <Button variant={'outline'}>Log In</Button>
-          </DialogTrigger>
-          <DialogContent className='max-w-lg'>
+          {/* <DialogTrigger asChild> */}
+            <Button variant={'outline'}>
+              <Link to="login">
+                Log In
+              </Link>
+            </Button>
+                {/* </DialogTrigger> */}
+                <DialogContent className='max-w-lg'>
             <DialogHeader>
               <DialogTitle>Log In</DialogTitle>
               <DialogDescription>

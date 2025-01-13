@@ -1,27 +1,22 @@
-import {ThemeProvider} from './components/theme-provider'
-import Navbar from './components/Navbar/Navbar'
-import Todo from './components/Todo/Todo'
+import {
+  Routes,
+  Route
+} from "react-router-dom";
 import { Toaster } from './components/ui/sonner'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { SupabaseProvider } from './contexts/SupabaseContext'
-import { AuthProvider } from './contexts/AuthContext'
 import './App.css';
+import { HomePage } from './pages/HomePage/HomePage'
+import { LoginPage } from "./pages/LoginPage/LoginPage";
 
-const queryClient = new QueryClient();
 
 function App() {
   return (
-    <ThemeProvider defaultTheme='dark' storageKey="vite-ui-theme">
-      <QueryClientProvider client={queryClient}>
-        <SupabaseProvider>
-          <AuthProvider>
-            <Navbar/>
-            <Todo/>
-          </AuthProvider>
-        </SupabaseProvider>
-      </QueryClientProvider>
+    <>
+        <Routes>
+          <Route path="/" element={<HomePage />}/>
+          <Route path="login" element={<LoginPage/>}/>
+        </Routes>
       <Toaster />
-    </ThemeProvider>
+    </>
   )
 }
 
