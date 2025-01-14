@@ -1,12 +1,13 @@
-import Navbar from "@/components/Navbar/Navbar";
 import Todo from "@/components/Todo/Todo";
+import { MainLayout } from "../MainLayout/MainLayout";
 
 export function HomePage() {
 
     return (
         <>
-            <Navbar/>
+        <MainLayout>
             <Todo/>
+        </MainLayout>
         </>
     )
 }

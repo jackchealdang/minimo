@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { useSupabase } from "@/contexts/SupabaseContext";
 import { GoogleLogin } from "../GoogleLogin/GoogleLogin";
 import { Separator } from "../ui/separator";
+import { Link } from "react-router-dom";
 
 const formSchema = z.object({
     email: z.string().email(),
@@ -84,7 +85,7 @@ export function LogInForm({closeParentDialog}: Props){
         <GoogleLogin/>
         <div className="text-center">
             Don't have an account?{" "}
-            <a href="#" className="underline underline-offset-4">Sign up</a>
+            <Link relative="route" to='todo-supabase/signup' className="underline underline-offset-4">Sign up</Link>
         </div>
         </div>
     )   
