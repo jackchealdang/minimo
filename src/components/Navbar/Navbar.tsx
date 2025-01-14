@@ -3,7 +3,7 @@ import { SignUpForm } from '../SignUpForm/SignUpForm';
 import Menu from '../Menu/Menu';
 import { ModeToggle } from '../mode-toggle';
 import { Button } from '../ui/button';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../ui/dialog';
 import { useSupabase } from '@/contexts/SupabaseContext';
 import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';

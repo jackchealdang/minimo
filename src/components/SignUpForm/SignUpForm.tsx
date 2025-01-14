@@ -4,7 +4,6 @@ import { Input } from "../ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ui/button";
-import { toast } from "sonner";
 import { useSupabase } from "@/contexts/SupabaseContext";
 import { Label } from "../ui/label";
 
