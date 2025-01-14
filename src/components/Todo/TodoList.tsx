@@ -15,7 +15,7 @@ export default function TodoList() {
     const queryClient = useQueryClient();
 
     async function fetchTodos() {
-        const { data } = await supabase.from('todo').select()
+        const { data } = await supabase.from('todo').select().order('id', { ascending: true})
         return data;
     }
 
@@ -23,7 +23,41 @@ export default function TodoList() {
         await supabase.from('todo').delete().eq('id', id);
     }
 
-    const mutation = useMutation({
+    async function toggleTodo(id: number, completed: boolean) {
+        await supabase.from('todo').update({completed: !completed}).eq('id', id);
+    }
+
+    const toggleMutation = useMutation({
+        mutationFn: ({id, completed}: {id: number, completed: boolean}) => toggleTodo(id, completed),
+        onMutate: async ({id, completed}: {id: number, completed: boolean}) => {
+            await queryClient.cancelQueries({queryKey: ['todos']});
+
+            const previousTodos = queryClient.getQueryData(['todos']);
+
+            queryClient.setQueryData(
+                ['todos'],
+                (oldTodos: Todo[] | undefined) => {
+                    const test = oldTodos?.map((todo) => {
+                        return todo.id === id ? {...todo, completed: !completed} : todo
+                    }) || []
+                    // console.log(test)
+                    return test
+                }
+            );
+
+            return { previousTodos };
+        },
+        onError: (_err, _newTodo, context) => {
+            queryClient.setQueryData(['todos'], context?.previousTodos);
+            toast("Failed to update Todo!");
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries({queryKey: ['todos']});
+            toast("Todo updated!");
+        }
+    })
+
+    const deleteMutation = useMutation({
         mutationFn: deleteTodo,
         onMutate: async (id: number) => {
             await queryClient.cancelQueries({queryKey: ['todos']});
@@ -39,7 +73,7 @@ export default function TodoList() {
         },
         onError: (_err, _newTodo, context) => {
             queryClient.setQueryData(['todos'], context?.previousTodos);
-            toast("Failed to create Todo!");
+            toast("Failed to delete Todo!");
         },
         onSettled: () => {
             queryClient.invalidateQueries({queryKey: ['todos']});
@@ -47,8 +81,12 @@ export default function TodoList() {
         }
     })
 
+    const handleToggleTodo = (id: number, completed: boolean) => {
+        toggleMutation.mutate({id, completed});
+    }
+
     const handleDeleteTodo = (id: number) => {
-        mutation.mutate(id);
+        deleteMutation.mutate(id);
     };
 
     if (isPending) return (
@@ -63,7 +101,7 @@ export default function TodoList() {
                 <ContextMenu key={todo.id} modal={false}>
                         <ContextMenuTrigger className="">
                         <div className="flex items-center space-x-2">
-                            <Checkbox id={`${todo.id}`} key={`c-${todo.id}`}/>
+                            <Checkbox id={`${todo.id}`} key={`c-${todo.id}`} checked={todo.completed} onCheckedChange={() => handleToggleTodo(todo.id, todo.completed)}/>
                             <Badge className="bg-blue-500 font-bold">Important</Badge>
                             <Label key={`l-${todo.id}`} htmlFor={`${todo.id}`}>{todo.title}</Label>
                         </div>
