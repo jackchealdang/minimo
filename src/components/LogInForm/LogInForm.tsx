@@ -9,6 +9,7 @@ import { useSupabase } from "@/contexts/SupabaseContext";
 import { GoogleLogin } from "../GoogleLogin/GoogleLogin";
 import { Separator } from "../ui/separator";
 import { Link } from "react-router-dom";
+import { Label } from "../ui/label";
 
 const formSchema = z.object({
     email: z.string().email(),
@@ -37,7 +38,13 @@ export function LogInForm({closeParentDialog}: Props){
             password: values.password,
         })
         if (error) {
-            toast('Failed to sign in');
+            // alert('Incorrect password or user does not exist.');
+            console.log(error.code);
+            // toast('Failed to sign in');
+            // set server errors as root; they don't persist per submission!
+            form.setError('root.serverError', {
+                type: error.code
+            })
             return;
         }
         toast('Signed in successfully!');
@@ -80,12 +87,14 @@ export function LogInForm({closeParentDialog}: Props){
                 />
                 <Button type='submit' className="w-full">Login</Button>
             </form>
+            {form.formState.errors.root?.serverError.type === 'invalid_credentials' && <Label className="text-destructive">Incorrect password</Label>}
+            {form.formState.errors.root?.serverError.type === 'email_not_confirmed' && <Label className="text-destructive">Please check your email for the confirmation link</Label>}
         </Form>
         <Separator/>
         <GoogleLogin/>
         <div className="text-center">
             Don't have an account?{" "}
-            <Link relative="route" to='todo-supabase/signup' className="underline underline-offset-4">Sign up</Link>
+            <Link to='/todo-supabase/signup' className="underline underline-offset-4">Sign up</Link>
         </div>
         </div>
     )   

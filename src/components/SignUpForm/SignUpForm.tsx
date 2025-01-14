@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { useSupabase } from "@/contexts/SupabaseContext";
+import { Label } from "../ui/label";
 
 const formSchema = z.object({
     email: z.string().email(),
@@ -38,13 +39,22 @@ export function SignUpForm({closeParentDialog}: Props){
             password: values.password,
         })
         if (error) {
-            toast('Failed to sign up');
+            console.log(error.code)
+            form.setError('root.serverError', {
+                type: error.code,
+                message: error.message
+            })
+            // toast('Failed to sign up');
             return;
         }
-        toast('Signed up successfully!');
+        // toast('Signed up successfully!');
 
-        console.log('submitted!');
-        console.log(values);
+        // console.log('submitted!');
+        // console.log(values);
+        form.setError('root.serverSuccess', {
+                type: '200',
+            }
+        )
         console.log(data);
 
         if (typeof closeParentDialog === 'function') closeParentDialog(); 
@@ -96,6 +106,8 @@ export function SignUpForm({closeParentDialog}: Props){
                 <Button type='submit'>Sign Up</Button>
             </form>
         </Form>
+            {/* {form.formState.errors.root?.serverError?.type === '200' && <Label>Please check the confirmation link sent to your email</Label>} */}
+            {form.formState.errors.root?.serverSuccess?.type === '200' && <Label className="text-green-600 pt-6">Please check the confirmation link sent to your email</Label>}
         </>
     )   
 }

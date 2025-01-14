@@ -6,7 +6,7 @@ export function LoginPage() {
 
     return (
         <MainLayout>
-        <div className="flex w-full h-full items-center justify-center">
+        <div className="flex w-full h-full items-center justify-center mt-44">
             <Card className="w-[400px]">
                 <CardHeader>
                     <CardTitle>Log In</CardTitle>

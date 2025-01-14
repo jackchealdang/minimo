@@ -8,11 +8,11 @@ interface Props {
 export function MainLayout({children}: Props) {
 
     return (
-        <div>
-            <header>
+        <div className="h-full w-full">
+            <header className="sticky top-0">
                 <Navbar/>
             </header>
-            <main>
+            <main className="">
                 {children}
             </main>
             <footer>
