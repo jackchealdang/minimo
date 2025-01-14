@@ -30,9 +30,11 @@ function Navbar() {
     <div className='w-full flex items-center justify-between text-center'>
       <div className='items-center gap-5 flex'>
         <Link to='/todo-supabase'>
-          <h1 className='hidden sm:block font-bold'>Minimo</h1>
+          <h1 className='hidden sm:block font-bold'>Minimo.</h1>
         </Link>
-        <Menu/>
+        {user &&
+        (<Menu/>)
+        }
       </div>
       {/* <div className="border rounded-full">
                 <a>Getting Started</a>
