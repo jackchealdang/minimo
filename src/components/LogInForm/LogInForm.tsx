@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { useSupabase } from "@/contexts/SupabaseContext";
 import { GoogleLogin } from "../GoogleLogin/GoogleLogin";
 import { Separator } from "../ui/separator";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Label } from "../ui/label";
 
 const formSchema = z.object({
@@ -22,6 +22,7 @@ interface Props {
 
 export function LogInForm({closeParentDialog}: Props){
     const supabase = useSupabase();
+    const navigate = useNavigate();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -45,10 +46,7 @@ export function LogInForm({closeParentDialog}: Props){
             })
             return;
         }
-        toast('Signed in successfully!');
-
-        console.log('signed in!');
-        console.log(data);
+        navigate('/todo-supabase');
 
         if (typeof closeParentDialog === 'function') closeParentDialog(); 
     }
