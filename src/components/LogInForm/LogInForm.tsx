@@ -4,7 +4,6 @@ import { Input } from "../ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ui/button";
-import { toast } from "sonner";
 import { useSupabase } from "@/contexts/SupabaseContext";
 import { GoogleLogin } from "../GoogleLogin/GoogleLogin";
 import { Separator } from "../ui/separator";
@@ -37,10 +36,7 @@ export function LogInForm({closeParentDialog}: Props){
             password: values.password,
         })
         if (error) {
-            // alert('Incorrect password or user does not exist.');
             console.log(error.code);
-            // toast('Failed to sign in');
-            // set server errors as root; they don't persist per submission!
             form.setError('root.serverError', {
                 type: error.code
             })

@@ -43,18 +43,12 @@ export function SignUpForm({closeParentDialog}: Props){
                 type: error.code,
                 message: error.message
             })
-            // toast('Failed to sign up');
             return;
         }
-        // toast('Signed up successfully!');
-
-        // console.log('submitted!');
-        // console.log(values);
         form.setError('root.serverSuccess', {
                 type: '200',
             }
         )
-        console.log(data);
 
         if (typeof closeParentDialog === 'function') closeParentDialog(); 
     }
