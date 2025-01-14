@@ -13,9 +13,7 @@ import { Label } from "../ui/label";
 
 const formSchema = z.object({
     email: z.string().email(),
-    password: z.string()
-        .min(8, {message: 'Password must be between 8 and 64 characters'})
-        .max(64, {message: 'Password cannot be longer than 64 characters'}),
+    password: z.string(),
 });
 
 interface Props {
