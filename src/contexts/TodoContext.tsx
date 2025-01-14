@@ -38,12 +38,10 @@ export const TodosProvider: React.FC<{children: React.ReactNode}> = ({ children 
         .then(response => response.json())
         .then(data => {
             setTodos((prev) => [...prev,...data]);
-            console.log(data);
             toast("Todo created!", {
             })
         })
-        .catch(error => {
-            console.log(error);
+        .catch(_error => {
             toast("Failed to create Todo!", {
             })
         })

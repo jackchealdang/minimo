@@ -36,7 +36,6 @@ export function LogInForm({closeParentDialog}: Props){
             password: values.password,
         })
         if (error) {
-            console.log(error.code);
             form.setError('root.serverError', {
                 type: error.code
             })

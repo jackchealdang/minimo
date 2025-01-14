@@ -40,7 +40,6 @@ export default function TodoList() {
                     const test = oldTodos?.map((todo) => {
                         return todo.id === id ? {...todo, completed: !completed} : todo
                     }) || []
-                    // console.log(test)
                     return test
                 }
             );
@@ -102,8 +101,8 @@ export default function TodoList() {
                         <ContextMenuTrigger className="">
                         <div className="flex items-center space-x-2">
                             <Checkbox id={`${todo.id}`} key={`c-${todo.id}`} checked={todo.completed} onCheckedChange={() => handleToggleTodo(todo.id, todo.completed)}/>
-                            <Badge className="bg-blue-500 font-bold">Important</Badge>
-                            <Label key={`l-${todo.id}`} htmlFor={`${todo.id}`}>{todo.title}</Label>
+                            <Badge className={`${todo.completed ? 'bg-gray-500' : 'bg-blue-500'} font-bold`}>Important</Badge>
+                            <Label key={`l-${todo.id}`} htmlFor={`${todo.id}`} className={`${todo.completed ? 'line-through text-gray-500' : ''}`}>{todo.title}</Label>
                         </div>
                         </ContextMenuTrigger>
                         <ContextMenuContent>
