@@ -33,7 +33,7 @@ export function SignUpForm({closeParentDialog}: Props){
     })
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        const {_data, error} = await supabase.auth.signUp({
+        const {error} = await supabase.auth.signUp({
             email: values.email,
             password: values.password,
         })
