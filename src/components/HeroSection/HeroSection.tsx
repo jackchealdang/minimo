@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Button } from "../ui/button";
+import { buttonVariants } from "../ui/button";
 
 export function HeroSection() {
 
@@ -8,7 +8,7 @@ export function HeroSection() {
             <div className="flex flex-col text-left space-y-4">
                 <h1 className="text-6xl font-extrabold">Minimo.</h1>
                 <h3 className="ml-1">A minimal Todo app.</h3>
-                <Button className="max-w-max" variant="outline"><Link to='/todo-supabase/signup'>Get started</Link></Button>
+                <Link to='/todo-supabase/signup' className={buttonVariants({variant: 'default', className: 'max-w-fit'})}>Get started →</Link>
             </div>
         </div>
     )

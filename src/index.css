@@ -37,7 +37,7 @@ h1 {
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
+    --primary: 220 88% 62%;
     --primary-foreground: 0 0% 98%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
@@ -60,7 +60,7 @@ h1 {
   .dark  {
     --background: 224 50% 5%;
     --foreground: 224 5% 90%;
-    --card: 224 50% 0%;
+    --card: 224 50% 5%;
     --card-foreground: 224 5% 90%;
     --popover: 224 50% 5%;
     --popover-foreground: 224 5% 90%;

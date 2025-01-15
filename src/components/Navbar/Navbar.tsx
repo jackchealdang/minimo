@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
 import { LogInForm } from '../LogInForm/LogInForm';
 import { Link } from 'react-router-dom';
+import { LogInIcon } from 'lucide-react';
 
 function Navbar() {
   const { user } = useAuth();
@@ -48,7 +49,7 @@ function Navbar() {
         </>) : <>
         <Dialog open={showSignUpForm} onOpenChange={setShowSignUpForm} modal={false}>
           {/* <DialogTrigger asChild> */}
-            <Button variant={'outline'}>
+            <Button variant={'outline'} asChild>
               <Link to='/todo-supabase/signup'>
                 Sign Up
               </Link>
@@ -66,9 +67,9 @@ function Navbar() {
         </Dialog>
         <Dialog open={showLoginForm} onOpenChange={setShowLoginForm} modal={false}>
           {/* <DialogTrigger asChild> */}
-            <Button variant={'outline'}>
-              <Link to="/todo-supabase/login">
-                Log In
+            <Button variant='outline' className='outline outline-1 -outline-offset-1 outline-primary' asChild>
+              <Link className='flex items-center gap-x-1 text-rp' to="/todo-supabase/login">
+                Log In{" "}<LogInIcon/>
               </Link>
             </Button>
                 {/* </DialogTrigger> */}
