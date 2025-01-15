@@ -39,6 +39,10 @@ export default function Menu() {
                 Create Folder
                 <MenubarShortcut></MenubarShortcut>
               </MenubarItem>
+              <MenubarItem disabled>
+                Settings
+                <MenubarShortcut></MenubarShortcut>
+              </MenubarItem>
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>

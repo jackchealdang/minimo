@@ -45,11 +45,13 @@ function Navbar() {
         <div className='hidden sm:block'>
           {user.email}
         </div>
+        <ModeToggle />
           <Button variant={'outline'} onClick={() => signOut()}>Sign out</Button>
         </>) : <>
+        <ModeToggle/>
         <Dialog open={showSignUpForm} onOpenChange={setShowSignUpForm} modal={false}>
           {/* <DialogTrigger asChild> */}
-            <Button variant={'outline'} asChild>
+            <Button variant={'ghost'} asChild>
               <Link to='/todo-supabase/signup'>
                 Sign Up
               </Link>
@@ -84,7 +86,6 @@ function Navbar() {
           </DialogContent>
         </Dialog>
         </>}
-        <ModeToggle />
       </div>
     </div>
   );
