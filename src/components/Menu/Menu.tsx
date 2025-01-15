@@ -26,7 +26,7 @@ export default function Menu() {
   return (
     <>
       <Dialog open={showCreateForm} onOpenChange={setShowCreateForm} modal={false}>
-        <Menubar>
+        <Menubar className='hidden sm:flex'>
           <MenubarMenu>
             <MenubarTrigger className='hover:bg-accent hover:text-accent-foreground'>File</MenubarTrigger>
             <MenubarContent>
