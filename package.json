@@ -2,7 +2,7 @@
   "name": "frontend",
   "private": false,
   "version": "0.0.0",
-  "homepage": "https://jackchealdang.github.io/todo-supabase",
+  "homepage": "https://jackchealdang.github.io/minimo",
   "type": "module",
   "scripts": {
     "dev": "vite",

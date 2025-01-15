@@ -8,7 +8,7 @@ export function HeroSection() {
             <div className="flex flex-col text-left space-y-4">
                 <h1 className="text-6xl font-extrabold">Minimo.</h1>
                 <h3 className="ml-1">A minimal Todo app.</h3>
-                <Link to='/todo-supabase/signup' className={buttonVariants({variant: 'default', className: 'max-w-fit'})}>Get started →</Link>
+                <Link to='/minimo/signup' className={buttonVariants({variant: 'default', className: 'max-w-fit'})}>Get started →</Link>
             </div>
         </div>
     )

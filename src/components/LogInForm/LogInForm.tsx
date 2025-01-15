@@ -41,7 +41,7 @@ export function LogInForm({closeParentDialog}: Props){
             })
             return;
         }
-        navigate('/todo-supabase');
+        navigate('/minimo');
 
         if (typeof closeParentDialog === 'function') closeParentDialog(); 
     }
@@ -85,7 +85,7 @@ export function LogInForm({closeParentDialog}: Props){
         <GoogleLogin/>
         <div className="text-center">
             Don't have an account?{" "}
-            <Link to='/todo-supabase/signup' className="underline underline-offset-4">Sign up</Link>
+            <Link to='/minimo/signup' className="underline underline-offset-4">Sign up</Link>
         </div>
         </div>
     )   

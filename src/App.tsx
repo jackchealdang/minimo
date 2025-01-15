@@ -14,9 +14,9 @@ function App() {
     <>
     <ThemeProvider defaultTheme='dark' storageKey="vite-ui-theme">
         <Routes>
-          <Route path="todo-supabase" element={<HomePage />}/>
-          <Route path="todo-supabase/login" element={<LoginPage/>}/>
-          <Route path="todo-supabase/signup" element={<SignupPage/>}/>
+          <Route path="minimo" element={<HomePage />}/>
+          <Route path="minimo/login" element={<LoginPage/>}/>
+          <Route path="minimo/signup" element={<SignupPage/>}/>
         </Routes>
       <Toaster />
     </ThemeProvider>

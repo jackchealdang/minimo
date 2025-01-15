@@ -9,7 +9,7 @@ export function GoogleLogin() {
         await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
-                redirectTo: 'https://jackchealdang.github.io/todo-supabase'
+                redirectTo: 'https://jackchealdang.github.io/minimo'
             }
         })
     }

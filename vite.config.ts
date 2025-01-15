@@ -12,5 +12,5 @@ export default defineConfig({
   build: {
     outDir: 'build'
   },
-  base: '/todo-supabase'
+  base: '/minimo'
 })

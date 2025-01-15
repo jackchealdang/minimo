@@ -30,7 +30,7 @@ function Navbar() {
   return (
     <div className='w-full flex items-center justify-between text-center'>
       <div className='items-center gap-5 flex'>
-        <Link to='/todo-supabase'>
+        <Link to='/minimo'>
           <h1 className='hidden sm:block font-bold'>Minimo.</h1>
         </Link>
         {user &&
@@ -52,7 +52,7 @@ function Navbar() {
         <Dialog open={showSignUpForm} onOpenChange={setShowSignUpForm} modal={false}>
           {/* <DialogTrigger asChild> */}
             <Button variant={'ghost'} asChild>
-              <Link to='/todo-supabase/signup'>
+              <Link to='/minimo/signup'>
                 Sign Up
               </Link>
               </Button>
@@ -70,7 +70,7 @@ function Navbar() {
         <Dialog open={showLoginForm} onOpenChange={setShowLoginForm} modal={false}>
           {/* <DialogTrigger asChild> */}
             <Button variant='outline' className='outline outline-1 -outline-offset-1 outline-primary' asChild>
-              <Link className='flex items-center gap-x-1 text-rp' to="/todo-supabase/login">
+              <Link className='flex items-center gap-x-1 text-rp' to="/minimo/login">
                 Log In{" "}<LogInIcon/>
               </Link>
             </Button>
