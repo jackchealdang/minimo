@@ -17,6 +17,7 @@ import {
   DialogTrigger,
 } from '../ui/dialog';
 import { useAuth } from '@/contexts/AuthContext';
+import { Button } from '../ui/button';
 
 export default function Menu() {
   const { user } = useAuth();
@@ -46,6 +47,9 @@ export default function Menu() {
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>
+            <MenubarTrigger className='hover:bg-accent hover:text-accent-foreground'>Edit</MenubarTrigger>
+          </MenubarMenu>
+          <MenubarMenu>
             <MenubarTrigger className='hover:bg-accent hover:text-accent-foreground'>Help</MenubarTrigger>
             <MenubarContent>
               <MenubarItem disabled>
@@ -64,6 +68,9 @@ export default function Menu() {
             </MenubarContent>
           </MenubarMenu>
         </Menubar>
+        <DialogTrigger asChild>
+          <Button className='font-extrabold text-lg'>+</Button>
+        </DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Create Todo</DialogTitle>

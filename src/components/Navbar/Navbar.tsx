@@ -31,7 +31,7 @@ function Navbar() {
     <div className='w-full flex items-center justify-between text-center'>
       <div className='items-center gap-5 flex'>
         <Link to='/minimo'>
-          <h1 className='hidden sm:block font-bold'>Minimo.</h1>
+          <h1 className={`${user ? 'hidden' : 'block'} sm:block font-bold`}>Minimo.</h1>
         </Link>
         {user &&
         (<Menu/>)
